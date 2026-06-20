@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+:root {
+  --color-deep-purple: #09091a;
+  --color-primary: #7c3aed;
+  --color-primary-glow: #a78bfa;
+  --color-light-purple-bg: #f6f2ff;
+  --color-white: #ffffff;
+  --color-dark-text: #1a1a2e;
+  --color-secondary-text: #5a5a7a;
+
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(167, 139, 250, 0.3);
+  --glass-blur: 12px;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Noto Sans SC', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --max-width: 1700px;
+  --side-padding: 80px;
+  --structural-line-offset: calc(var(--max-width) / 3);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-dark-text);
+  background: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}

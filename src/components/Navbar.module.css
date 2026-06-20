@@ -1,0 +1,61 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 var(--side-padding);
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.scrolled {
+  background: rgba(9, 9, 26, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(167, 139, 250, 0.15);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 110px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.signature {
+  height: 110px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.signature:hover {
+  opacity: 1;
+}
+
+.links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.link {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.3s ease;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--color-primary-glow);
+}

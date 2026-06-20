@@ -1,0 +1,22 @@
+.container {
+  position: absolute;
+  left: calc(var(--side-padding) + 40px);
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.line {
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    var(--color-primary-glow) 0%,
+    var(--color-primary) 50%,
+    transparent 100%
+  );
+  min-height: 0;
+  transition: height 0.1s linear;
+  opacity: 0.4;
+}

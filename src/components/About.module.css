@@ -1,0 +1,124 @@
+.section {
+  position: relative;
+  background: var(--color-light-purple-bg);
+  padding: 140px var(--side-padding);
+  overflow: hidden;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.imageCol {
+  display: flex;
+  justify-content: center;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  border-radius: 24px;
+  overflow: visible;
+}
+
+.glowOrb {
+  position: absolute;
+  inset: -20px;
+  border-radius: 28px;
+  background: radial-gradient(
+    circle at center,
+    rgba(167, 139, 250, 0.25) 0%,
+    rgba(124, 58, 237, 0.08) 50%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.image {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-dark-text);
+  letter-spacing: 0.04em;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+}
+
+.headingDivider {
+  width: 40px;
+  height: 2px;
+  background: var(--color-primary);
+  margin: 16px 0 24px;
+}
+
+.bio {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--color-secondary-text);
+  max-width: 600px;
+  margin-bottom: 36px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.statCardInner {
+  padding: 16px 10px;
+  text-align: center;
+}
+
+.statNumber {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  display: block;
+  line-height: 1.2;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: var(--color-secondary-text);
+  margin-top: 4px;
+  display: block;
+}
+
+.contactRow {
+  display: flex;
+  gap: 32px;
+}
+
+.contactItem {
+  font-size: 0.9rem;
+  color: var(--color-secondary-text);
+  letter-spacing: 0.02em;
+}
