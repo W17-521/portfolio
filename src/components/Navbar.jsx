@@ -23,7 +23,7 @@ export default function Navbar() {
     <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.inner}>
         <a href="#" className={styles.logo}>
-          <img src="/signature.png" alt="吴应晴" className={styles.signature} />
+          <img src={import.meta.env.BASE_URL + 'signature.png'} alt="吴应晴" className={styles.signature} />
         </a>
         <ul className={styles.links}>
           {NAV_ITEMS.map(item => (

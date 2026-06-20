@@ -43,7 +43,7 @@ export default function About() {
         <div className={styles.imageCol} ref={imageRef}>
           <div className={styles.imageWrapper}>
             <div className={styles.glowOrb} />
-            <img src="/avatar.png" alt="吴应晴头像" className={styles.image} />
+            <img src={import.meta.env.BASE_URL + 'avatar.png'} alt="吴应晴头像" className={styles.image} />
           </div>
         </div>
 

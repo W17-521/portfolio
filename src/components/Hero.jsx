@@ -48,7 +48,7 @@ export default function Hero() {
       <video
         ref={videoRef}
         className={styles.video}
-        src="/hero-bg.mp4"
+        src={import.meta.env.BASE_URL + 'hero-bg.mp4'}
         autoPlay
         muted
         playsInline

@@ -18,7 +18,7 @@ export default function ContactFooter() {
           <span>✆ 18991557566</span>
         </div>
         <img
-          src="/signature.png"
+          src={import.meta.env.BASE_URL + 'signature.png'}
           alt="吴应晴签名"
           className={styles.signature}
         />

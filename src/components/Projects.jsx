@@ -11,14 +11,14 @@ const PROJECTS = [
     title: '塔罗牌游戏',
     desc: '交互式塔罗牌占卜体验，流畅的卡牌动画与神秘氛围设计',
     url: 'https://tarot-game-1r2.pages.dev',
-    image: '/tarot-preview.png',
+    image: import.meta.env.BASE_URL + 'tarot-preview.png',
     tags: ['React', '游戏交互', '动画'],
   },
   {
     title: '健康监测应用',
     desc: '个人健康数据追踪看板，清晰的数据可视化与状态管理',
     url: 'https://w17-521.github.io/health-monitor-app/?v=2',
-    image: '/health-preview.png',
+    image: import.meta.env.BASE_URL + 'health-preview.png',
     tags: ['Vue', '数据可视化', '健康'],
   },
 ];
