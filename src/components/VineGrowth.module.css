@@ -1,11 +1,12 @@
-.container {
+.outer {
   position: fixed;
-  left: calc(var(--side-padding) + 20px);
   top: 0;
   bottom: 0;
-  width: 120px;
+  left: 30%;
+  width: 200px;
   z-index: 10;
   pointer-events: none;
+  transform: translateX(-50%);
 }
 
 .svg {

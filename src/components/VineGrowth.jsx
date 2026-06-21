@@ -5,28 +5,29 @@ import styles from './VineGrowth.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const GRAPE_CLUSTERS = [
-  { cy: 350, r: 6, count: 3 },
-  { cy: 700, r: 7, count: 4 },
-  { cy: 1100, r: 5, count: 3 },
-  { cy: 1550, r: 7, count: 5 },
-  { cy: 2000, r: 6, count: 3 },
-  { cy: 2500, r: 7, count: 4 },
-  { cy: 3000, r: 5, count: 3 },
-  { cy: 3400, r: 6, count: 4 },
+const GRAPE_GROUPS = [
+  { y: 300, set: [{ dx: 0, dy: 0, r: 12 }, { dx: -16, dy: -8, r: 10 }, { dx: 14, dy: -6, r: 10 }, { dx: -8, dy: 10, r: 9 }, { dx: 10, dy: 12, r: 10 }] },
+  { y: 650, set: [{ dx: 0, dy: 0, r: 13 }, { dx: -18, dy: -10, r: 11 }, { dx: 16, dy: -8, r: 11 }, { dx: -10, dy: 12, r: 10 }, { dx: 12, dy: 14, r: 10 }, { dx: -20, dy: 2, r: 9 }] },
+  { y: 1000, set: [{ dx: 0, dy: 0, r: 11 }, { dx: -14, dy: -6, r: 9 }, { dx: 13, dy: -8, r: 9 }, { dx: -6, dy: 10, r: 8 }] },
+  { y: 1400, set: [{ dx: 0, dy: 0, r: 14 }, { dx: -20, dy: -12, r: 12 }, { dx: 18, dy: -6, r: 11 }, { dx: -12, dy: 14, r: 11 }, { dx: 14, dy: 12, r: 11 }, { dx: -22, dy: 4, r: 10 }, { dx: 22, dy: 2, r: 9 }] },
+  { y: 1900, set: [{ dx: 0, dy: 0, r: 12 }, { dx: -16, dy: -8, r: 10 }, { dx: 15, dy: -6, r: 10 }, { dx: -8, dy: 12, r: 9 }, { dx: 10, dy: 10, r: 10 }] },
+  { y: 2400, set: [{ dx: 0, dy: 0, r: 13 }, { dx: -18, dy: -10, r: 11 }, { dx: 17, dy: -8, r: 11 }, { dx: -10, dy: 14, r: 10 }, { dx: 12, dy: 12, r: 10 }, { dx: -20, dy: 2, r: 9 }] },
+  { y: 2900, set: [{ dx: 0, dy: 0, r: 11 }, { dx: -14, dy: -7, r: 9 }, { dx: 14, dy: -6, r: 9 }, { dx: -7, dy: 11, r: 8 }] },
+  { y: 3400, set: [{ dx: 0, dy: 0, r: 14 }, { dx: -20, dy: -10, r: 12 }, { dx: 18, dy: -8, r: 11 }, { dx: -12, dy: 13, r: 11 }, { dx: 14, dy: 12, r: 11 }, { dx: -22, dy: 3, r: 10 }, { dx: 22, dy: 1, r: 9 }] },
+  { y: 3800, set: [{ dx: 0, dy: 0, r: 12 }, { dx: -16, dy: -9, r: 10 }, { dx: 15, dy: -7, r: 10 }, { dx: -8, dy: 11, r: 9 }, { dx: 10, dy: 11, r: 10 }] },
 ];
 
 export default function VineGrowth() {
   const vineRef = useRef(null);
-  const grapesRef = useRef([]);
+  const branchRefs = useRef([]);
+  const grapeRefs = useRef([]);
 
   useEffect(() => {
     const vine = vineRef.current;
     if (!vine) return;
-
-    const pathLength = vine.getTotalLength();
-    vine.style.strokeDasharray = pathLength;
-    vine.style.strokeDashoffset = pathLength;
+    const total = vine.getTotalLength();
+    vine.style.strokeDasharray = total;
+    vine.style.strokeDashoffset = total;
 
     const ctx = gsap.context(() => {
       gsap.to(vine, {
@@ -36,23 +37,38 @@ export default function VineGrowth() {
           trigger: '#about',
           start: 'top 85%',
           end: 'bottom bottom',
-          scrub: 0.8,
+          scrub: 0.6,
         },
       });
 
-      grapesRef.current.forEach((g, i) => {
+      branchRefs.current.forEach((b) => {
+        if (!b) return;
+        const bl = b.getTotalLength();
+        b.style.strokeDasharray = bl;
+        b.style.strokeDashoffset = bl;
+        gsap.to(b, {
+          strokeDashoffset: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: b.closest('svg') ? '#about' : null,
+            start: 'top 75%',
+            end: 'bottom bottom',
+            scrub: 0.6,
+          },
+        });
+      });
+
+      grapeRefs.current.forEach((g) => {
         if (!g) return;
-        gsap.fromTo(
-          g,
+        gsap.fromTo(g,
           { scale: 0, opacity: 0 },
           {
-            scale: 1,
-            opacity: 1,
-            duration: 0.4,
-            ease: 'back.out(1.7)',
+            scale: 1, opacity: 1,
+            duration: 0.5,
+            ease: 'back.out(2)',
             scrollTrigger: {
               trigger: g,
-              start: 'top 85%',
+              start: 'top 80%',
               toggleActions: 'play none none none',
             },
           }
@@ -64,113 +80,43 @@ export default function VineGrowth() {
   }, []);
 
   return (
-    <div className={styles.container} aria-hidden="true">
-      <svg
-        viewBox="0 0 160 3800"
-        preserveAspectRatio="xMinYMin meet"
-        className={styles.svg}
-      >
-        {/* Main vine */}
+    <div className={styles.outer} aria-hidden="true">
+      <svg viewBox="0 0 200 4000" preserveAspectRatio="xMinYMin meet" className={styles.svg}>
         <path
           ref={vineRef}
-          d="M80 0
-             C60 200, 120 350, 80 500
-             C40 650, 100 750, 80 900
-             C55 1050, 110 1200, 80 1400
-             C50 1600, 115 1750, 80 1950
-             C45 2150, 105 2350, 80 2600
-             C55 2800, 110 3050, 80 3300
-             C60 3500, 95 3650, 80 3800"
-          fill="none"
-          stroke="url(#vineGradient)"
-          strokeWidth="2"
-          strokeLinecap="round"
+          d="M100 0 C70 180, 140 320, 100 500 C55 680, 150 820, 100 1000 C50 1180, 145 1350, 100 1550 C60 1720, 140 1900, 100 2100 C55 2300, 150 2500, 100 2700 C50 2900, 145 3150, 100 3400 C65 3600, 130 3800, 100 4000"
+          fill="none" stroke="url(#vG)" strokeWidth="4" strokeLinecap="round"
         />
-
-        {/* Small branching vines */}
-        <path
-          d="M80 400 C90 380, 120 370, 135 365"
-          fill="none" stroke="url(#vineGradient)" strokeWidth="1.2" strokeLinecap="round"
-        />
-        <path
-          d="M80 900 C65 880, 40 870, 20 865"
-          fill="none" stroke="url(#vineGradient)" strokeWidth="1" strokeLinecap="round"
-        />
-        <path
-          d="M80 1550 C95 1530, 125 1515, 140 1510"
-          fill="none" stroke="url(#vineGradient)" strokeWidth="1.3" strokeLinecap="round"
-        />
-        <path
-          d="M80 2500 C60 2480, 35 2470, 20 2465"
-          fill="none" stroke="url(#vineGradient)" strokeWidth="1" strokeLinecap="round"
-        />
-
-        {/* Grapes clusters */}
-        {GRAPE_CLUSTERS.map((cluster, i) => (
-          <g
-            key={i}
-            ref={el => { grapesRef.current[i] = el; }}
-          >
-            {Array.from({ length: cluster.count }).map((_, j) => {
-              const angle = (j / cluster.count) * Math.PI * 2;
-              const spread = cluster.r * 1.8;
-              const cx = cluster.cx || 80 + j * 12 - (cluster.count * 6);
-              // Alternate left/right for clusters
-              const isLeft = i % 2 === 0;
-              const baseX = isLeft ? 80 - cluster.r * 2 : 80 + cluster.r * 2;
-              const offsetX = Math.cos(angle) * spread;
-              const offsetY = Math.sin(angle) * spread;
-              const r = cluster.r * (0.7 + Math.random() * 0.4);
-              return (
-                <circle
-                  key={j}
-                  cx={baseX + offsetX * 0.6}
-                  cy={cluster.cy + offsetY * 0.6}
-                  r={r}
-                  fill={`url(#grapeGrad${(i + j) % 3})`}
-                  opacity={0.85}
-                />
-              );
-            })}
+        {[
+          'M100 320 C115 290, 150 270, 175 265',
+          'M100 780 C85 750, 50 735, 25 730',
+          'M100 1450 C120 1420, 155 1400, 180 1395',
+          'M100 2050 C80 2020, 45 2005, 20 2000',
+          'M100 2800 C115 2770, 150 2755, 175 2750',
+          'M100 3600 C80 3570, 45 3555, 20 3550',
+        ].map((d, i) => (
+          <path key={i} ref={el => { branchRefs.current[i] = el; }} d={d}
+            fill="none" stroke="url(#vG)" strokeWidth="2.5" strokeLinecap="round" />
+        ))}
+        {GRAPE_GROUPS.map((grp, gi) => (
+          <g key={gi} ref={el => { grapeRefs.current[gi] = el; }}>
+            {grp.set.map((s, ci) => (
+              <circle key={ci} cx={100 + s.dx} cy={grp.y + s.dy} r={s.r}
+                fill={`url(#gp${(gi + ci) % 3})`} opacity="0.88" />
+            ))}
           </g>
         ))}
-
-        {/* Tiny leaves */}
-        {[300, 800, 1400, 2100, 2700, 3300].map((y, i) => {
-          const isRight = i % 2 === 0;
-          const x = isRight ? 90 : 70;
-          const cx = isRight ? x + 8 : x - 8;
-          return (
-            <ellipse
-              key={i}
-              cx={cx} cy={y - 5}
-              rx="6" ry="3"
-              fill="rgba(167, 139, 250, 0.4)"
-              transform={`rotate(${isRight ? 20 : -20} ${cx} ${y - 5})`}
-            />
-          );
-        })}
-
         <defs>
-          <linearGradient id="vineGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.1" />
-            <stop offset="30%" stopColor="#7c3aed" stopOpacity="0.5" />
-            <stop offset="60%" stopColor="#a78bfa" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.3" />
+          <linearGradient id="vG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#c084fc" stopOpacity="0.6" />
+            <stop offset="25%" stopColor="#a78bfa" stopOpacity="0.7" />
+            <stop offset="50%" stopColor="#7c3aed" stopOpacity="0.8" />
+            <stop offset="75%" stopColor="#a78bfa" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.5" />
           </linearGradient>
-
-          <radialGradient id="grapeGrad0">
-            <stop offset="0%" stopColor="#c084fc" />
-            <stop offset="100%" stopColor="#7c3aed" />
-          </radialGradient>
-          <radialGradient id="grapeGrad1">
-            <stop offset="0%" stopColor="#a78bfa" />
-            <stop offset="100%" stopColor="#6d28d9" />
-          </radialGradient>
-          <radialGradient id="grapeGrad2">
-            <stop offset="0%" stopColor="#ddd6fe" />
-            <stop offset="100%" stopColor="#8b5cf6" />
-          </radialGradient>
+          <radialGradient id="gp0"><stop offset="0%" stopColor="#ddd6fe" /><stop offset="100%" stopColor="#8b5cf6" /></radialGradient>
+          <radialGradient id="gp1"><stop offset="0%" stopColor="#c084fc" /><stop offset="100%" stopColor="#7c3aed" /></radialGradient>
+          <radialGradient id="gp2"><stop offset="0%" stopColor="#a78bfa" /><stop offset="100%" stopColor="#6d28d9" /></radialGradient>
         </defs>
       </svg>
     </div>
